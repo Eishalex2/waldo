@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import Target from '../components/target';
 import GameItemSelect from '../components/gameItemSelect';
 
@@ -54,6 +55,11 @@ const GamePage = ({ items, handleSelect}) => {
       )}
     </div>
   )
+}
+
+GamePage.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object),
+  handleSelect: PropTypes.func
 }
 
 export default GamePage;
