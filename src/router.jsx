@@ -6,6 +6,15 @@ import GameHeader from './pages/gameHeader';
 import GamePage from './pages/gamePage';
 
 function Router() {
+  const items = [
+    { _id: 1, name: "item1" },
+    { _id: 2, name: "item2" }
+  ];
+
+  function handleSelect(item) {
+    console.log(item);
+  }
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -17,7 +26,7 @@ function Router() {
       element: <GameHeader />,
       errorElement: <ErrorPage />,
       children: [
-        { path: '/game/:id', element: <GamePage /> },
+        { path: '/game/:id', element: <GamePage items={items} handleSelect={handleSelect} /> },
       ],
     },
   ]);

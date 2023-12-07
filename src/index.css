@@ -13,3 +13,20 @@
   justify-content: center;
   align-items: center;
 }
+
+.item-select {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: green;
+  width: 100px;
+}
+
+.item {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  color: white;
+}
