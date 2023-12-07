@@ -1,0 +1,15 @@
+.game-image {
+  background-color: pink;
+}
+
+.target {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px black dashed;
+  background-color: rgba(221, 160, 221, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
