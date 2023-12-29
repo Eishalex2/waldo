@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background-color: pink;
+}
+
+.leader {
+  padding: 10px 20px;
+}
+
+.leader:hover {
+  cursor: pointer;
+}
