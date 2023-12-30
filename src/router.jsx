@@ -1,33 +1,52 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 import ErrorPage from './pages/errorPage';
 import Homepage from './pages/homepage';
-import GameHeader from './pages/gameHeader';
 import GamePage from './pages/gamePage';
 
 function Router() {
-  const items = [
-    { _id: 1, name: "item1" },
-    { _id: 2, name: "item2" }
-  ];
+  const [games, setGames] = useState([]);
+  const [items, setItems] = useState([]);
 
-  function handleSelect(item) {
-    console.log(item);
-  }
+  useEffect(() => {
+    const loadGames = async () => {
+      try {
+        const response = await fetch("https://waldo-api-eishalex.fly.dev/api/games");
+        const gameData = await response.json();
+        setGames(gameData);
+      } catch (error) {
+        setGames([]);
+        console.log(error);
+      }
+    }
+    loadGames();
+  }, []);
+
+  useEffect(() => {
+    const loadItems = async () => {
+      try {
+        const response = await fetch("https://waldo-api-eishalex.fly.dev/api/items");
+        const itemData = await response.json();
+        setItems(itemData);
+      } catch (error) {
+        setItems([]);
+        console.log(error);
+      }
+    }
+    loadItems();
+  }, []);
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Homepage />,
+      element: <Homepage games={games}/>,
       errorElement: <ErrorPage />,
     },
     {
-      path: "/game",
-      element: <GameHeader />,
-      errorElement: <ErrorPage />,
-      children: [
-        { path: '/game/:id', element: <GamePage items={items} handleSelect={handleSelect} /> },
-      ],
+      path: "/game/:id",
+      element: <GamePage items={items} />,
+      errorElement: <ErrorPage />
     },
   ]);
   return <RouterProvider router={router} />

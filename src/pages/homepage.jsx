@@ -1,6 +1,8 @@
 import styles from '../styles/homepage.module.css';
+import GameCard from '../components/gameCard';
 
-const Homepage = () => {
+const Homepage = ({ games }) => {
+
   return (
     <>
       <header className={styles.header}>
@@ -10,7 +12,13 @@ const Homepage = () => {
         </nav>
       </header>
       <div className={styles.content}>
-
+        {games && (
+          games.map((game) => {
+            return (
+              <GameCard key={game._id} game={game}/>
+            )
+          })
+        )}
       </div>
     </>
   )

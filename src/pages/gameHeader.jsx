@@ -1,9 +1,16 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, Link } from "react-router-dom"
+import styles from '../styles/gameHeader.module.css';
 
-const GameHeader = () => {
+const GameHeader = ({ items }) => {
   return (
     <>
-      <h1>Game header</h1>
+      <header className={styles.header}>
+        <Link to="/"><h1>Wimmelbilderbuch</h1></Link>
+        <p>Timer</p>
+        <div className='items'>
+          items
+        </div>
+      </header>
       <Outlet />
     </>
 
