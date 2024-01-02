@@ -17,7 +17,7 @@ const GamePage = ({ items, handleSelect }) => {
   const [selectTop, setSelectTop] = useState();
   const [showTarget, setShowTarget] = useState(false);
 
-  const selectHeight = gameItems.length * 45;
+  const selectHeight = gameItems.length * 70;
 
   function handleClick(e) {
     if (!showTarget) {
@@ -25,16 +25,26 @@ const GamePage = ({ items, handleSelect }) => {
 
       const xCoord = e.pageX;
       const yCoord = e.pageY;
+      const imageHeight = e.target.clientHeight;
+
+      console.log(xCoord, yCoord);
       // Set to -25 because that's half of the target box width and height
       // (getting the center of the circle)
       setTargetLeft(xCoord - 25 + 'px');
       setTargetTop(yCoord - 25 + 'px');
 
-      setSelectTop(yCoord - (selectHeight / 2) + 'px');
+      if (yCoord < 200) {
+        setSelectTop(100 + 'px');
+      } else if (yCoord > (imageHeight - (selectHeight / 2))) {
+        setSelectTop(imageHeight - selectHeight + 50 + 'px');
+      } else {
+        setSelectTop(yCoord - (selectHeight / 2) + 'px');
+      }
+
       if (xCoord < 150) {
         setSelectLeft(xCoord + 40 + 'px');
       } else {
-        setSelectLeft(xCoord - 40 - 100 + 'px');
+        setSelectLeft(xCoord - 150 - 100 + 'px');
       }
     } else {
       setShowTarget(false);
@@ -61,7 +71,7 @@ const GamePage = ({ items, handleSelect }) => {
       <img onClick={handleClick} className={styles.gameImage} src={`https://waldo-api-eishalex.fly.dev/api/image/${id}`} alt="" />
       {showTarget && (
         <>
-          <Target 
+          <Target
             targetLeft={targetLeft}
             targetTop={targetTop}
           />

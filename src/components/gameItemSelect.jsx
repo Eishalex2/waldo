@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
-import styles from '../styles/gamePage.module.css';
 
 const GameItemSelect = ({ gameId, items, handleSelect, selectLeft, selectTop }) => {
   return (
-    <div style={{left: selectLeft, top: selectTop}}>
+    <div className="item-select" style={{left: selectLeft, top: selectTop}}>
       {items.map((item) => {
         return (
           <div className="item" key={item._id} onClick={handleSelect}>
-            <img src={`https://waldo-api-eishalex.fly.dev/api/image/${gameId}/${item._id}`} alt="" />
+            <img className="item-image" src={`https://waldo-api-eishalex.fly.dev/api/image/${gameId}/${item._id}`} alt="" />
             <p>{item.name}</p>
           </div>
         )
