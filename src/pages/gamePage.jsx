@@ -5,19 +5,32 @@ import Target from '../components/target';
 import GameItemSelect from '../components/gameItemSelect';
 import styles from '../styles/gamePage.module.css';
 
-const GamePage = ({ items, handleSelect }) => {
+const GamePage = ({ items }) => {
 
   let { id } = useParams();
 
   const gameItems = items.filter((item) => item.game === id);
 
+  const [xCoord, setXCoord] = useState();
+  const [yCoord, setYCoord] = useState();
+  const [natX, setNatX] = useState();
+  const [natY, setNatY] = useState();
+  const [rangeCoord, setRangeCoord] = useState();
   const [targetLeft, setTargetLeft] = useState();
   const [targetTop, setTargetTop] = useState();
   const [selectLeft, setSelectLeft] = useState();
   const [selectTop, setSelectTop] = useState();
   const [showTarget, setShowTarget] = useState(false);
+  const [remainingItems, setRemainingItems] = useState(gameItems);
 
   const selectHeight = gameItems.length * 70;
+
+  function coordConversion(coord, imgDim, natDim) {
+    return Math.round((coord / imgDim) * natDim);
+    // natural x / natural width = xCoord / image width
+    // natural x is what you don't have. So it is xCoord / image width *
+    // natural width
+  }
 
   function handleClick(e) {
     if (!showTarget) {
@@ -25,9 +38,15 @@ const GamePage = ({ items, handleSelect }) => {
 
       const xCoord = e.pageX;
       const yCoord = e.pageY;
-      const imageHeight = e.target.clientHeight;
+      setXCoord(xCoord);
+      setYCoord(yCoord);
 
-      console.log(xCoord, yCoord);
+      const natX = coordConversion(xCoord, e.target.clientWidth, e.target.naturalWidth);
+      const natY = coordConversion(yCoord - e.target.offsetTop, e.target.clientHeight, e.target.naturalHeight);
+      setNatX(natX);
+      setNatY(natY);
+ 
+      const imageHeight = e.target.clientHeight;
       // Set to -25 because that's half of the target box width and height
       // (getting the center of the circle)
       setTargetLeft(xCoord - 25 + 'px');
@@ -49,6 +68,19 @@ const GamePage = ({ items, handleSelect }) => {
     } else {
       setShowTarget(false);
     }
+  }
+
+
+
+  function handleSelect(item) {
+    // const natX = coordConversion(xCoord, e.target.width, e.target.naturalWidth);
+    // console.log(natX)
+    // console.log(xCoord);
+    // have to normalize the coords
+    // check if the item is within the boundaries of the target
+    // if it is, mark that item as done
+    console.log(item.coords);
+    console.log("natY: " + natY);
   }
 
   return (
