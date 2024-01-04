@@ -15,15 +15,17 @@ const GamePage = ({ items }) => {
   const [yCoord, setYCoord] = useState();
   const [natX, setNatX] = useState();
   const [natY, setNatY] = useState();
-  const [rangeCoord, setRangeCoord] = useState();
+  const [rangeX, setRangeX] = useState();
+  const [rangeY, setRangeY] = useState();
   const [targetLeft, setTargetLeft] = useState();
   const [targetTop, setTargetTop] = useState();
   const [selectLeft, setSelectLeft] = useState();
   const [selectTop, setSelectTop] = useState();
   const [showTarget, setShowTarget] = useState(false);
   const [remainingItems, setRemainingItems] = useState(gameItems);
+  const [chosenItems, setChosenItems] = useState([]);
 
-  const selectHeight = gameItems.length * 70;
+  const selectHeight = remainingItems.length * 70;
 
   function coordConversion(coord, imgDim, natDim) {
     return Math.round((coord / imgDim) * natDim);
@@ -43,14 +45,18 @@ const GamePage = ({ items }) => {
 
       const natX = coordConversion(xCoord, e.target.clientWidth, e.target.naturalWidth);
       const natY = coordConversion(yCoord - e.target.offsetTop, e.target.clientHeight, e.target.naturalHeight);
+      const rangeX = coordConversion(40, e.target.clientWidth, e.target.naturalWidth);
+      const rangeY = coordConversion(40, e.target.clientHeight, e.target.naturalHeight);
       setNatX(natX);
       setNatY(natY);
+      setRangeX(rangeX);
+      setRangeY(rangeY);
  
       const imageHeight = e.target.clientHeight;
       // Set to -25 because that's half of the target box width and height
       // (getting the center of the circle)
-      setTargetLeft(xCoord - 25 + 'px');
-      setTargetTop(yCoord - 25 + 'px');
+      setTargetLeft(xCoord - 40 + 'px');
+      setTargetTop(yCoord - 40 + 'px');
 
       if (yCoord < 200) {
         setSelectTop(100 + 'px');
@@ -60,8 +66,8 @@ const GamePage = ({ items }) => {
         setSelectTop(yCoord - (selectHeight / 2) + 'px');
       }
 
-      if (xCoord < 150) {
-        setSelectLeft(xCoord + 40 + 'px');
+      if (xCoord < (e.target.clientWidth / 3)) {
+        setSelectLeft(xCoord + 50 + 'px');
       } else {
         setSelectLeft(xCoord - 150 - 100 + 'px');
       }
@@ -79,8 +85,21 @@ const GamePage = ({ items }) => {
     // have to normalize the coords
     // check if the item is within the boundaries of the target
     // if it is, mark that item as done
-    console.log(item.coords);
-    console.log("natY: " + natY);
+    if (
+      item.coords.x > natX - rangeX &&
+      item.coords.x < natX + rangeX &&
+      item.coords.y > natY - rangeY &&
+      item.coords.y < natY + rangeY
+    ) {
+      // you have a match
+      console.log("match");
+      const items = remainingItems.filter((obj) => obj._id !== item._id);
+      setRemainingItems(items);
+      setShowTarget(false);
+      setChosenItems([...chosenItems, item._id]);
+    } else {
+      console.log("nope");
+    }
   }
 
   return (
@@ -91,8 +110,9 @@ const GamePage = ({ items }) => {
         <div className={styles.itemContainer}>
           {gameItems && (
             gameItems.map((item) => {
+              console.log("Chosen items: " + chosenItems);
               return (
-                <img className={styles.item}
+                <img className={chosenItems.includes(item._id) ? styles.chosen : styles.item}
                 key={item._id} 
                 src={`https://waldo-api-eishalex.fly.dev/api/image/${id}/${item._id}`} />
               )
@@ -109,7 +129,7 @@ const GamePage = ({ items }) => {
           />
           <GameItemSelect 
             gameId={id}
-            items={gameItems} 
+            items={remainingItems} 
             handleSelect={handleSelect}
             selectLeft={selectLeft}
             selectTop={selectTop}
