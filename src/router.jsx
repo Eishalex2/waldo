@@ -45,7 +45,7 @@ function Router() {
     },
     {
       path: "/game/:id",
-      element: <GamePage items={items} />,
+      element: <GamePage items={items} games={games} />,
       errorElement: <ErrorPage />
     },
   ]);

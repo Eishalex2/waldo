@@ -1,2 +1,1 @@
-Want to make a bigger target area. Need to natural the range of the
-target area.
+add popups for when the guess is wrong and right. Add timer. Add game ends popup with leaderboard form.
