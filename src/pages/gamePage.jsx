@@ -12,8 +12,6 @@ const GamePage = ({ games, items }) => {
 
   let { id } = useParams();
 
-  const game = games.filter((obj) => game.id === id);
-
   const gameItems = items.filter((item) => item.game === id);
 
   // const [xCoord, setXCoord] = useState();
@@ -34,6 +32,8 @@ const GamePage = ({ games, items }) => {
   const [correct, setCorrect] = useState(false);
   const [timer, setTimer] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+
+  const game = games.filter((obj) => obj.id === id);
 
   const selectHeight = remainingItems.length * 70;
 
@@ -136,7 +136,7 @@ const GamePage = ({ games, items }) => {
   return (
     <>
       <header className={styles.header}>
-        <Link to="/"><h1>Wimmelbilderbuch</h1></Link>
+        <Link to="/" className={styles.link}><h1>Wimmelbilderbuch</h1></Link>
         <Timer timer={timer}/>
         <div className={styles.itemContainer}>
           {gameItems && (

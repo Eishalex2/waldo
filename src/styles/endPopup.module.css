@@ -1,0 +1,20 @@
+.endContainer {
+  border: 1px solid black;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 15px;
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background-color: white;
+}
+
+
+.leader {
+  margin: 5px 0 10px 0;
+}
