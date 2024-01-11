@@ -8,6 +8,7 @@ import GamePage from './pages/gamePage';
 function Router() {
   const [games, setGames] = useState([]);
   const [items, setItems] = useState([]);
+  const [leaders, setLeaders] = useState([]);
 
   useEffect(() => {
     const loadGames = async () => {
@@ -36,6 +37,20 @@ function Router() {
     }
     loadItems();
   }, []);
+
+  useEffect(() => {
+    const loadLeaders = async () => {
+      try {
+        const response = await fetch("https://waldo-api-eishalex.fly.dev/api/leaders");
+        const leaderData = await response.json();
+        setLeaders(leaderData)
+      } catch (error) {
+        setLeaders([]);
+        console.log(error);
+      }
+    }
+    loadLeaders();
+  }, [leaders]);
 
   const router = createBrowserRouter([
     {

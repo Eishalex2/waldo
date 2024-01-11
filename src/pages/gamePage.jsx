@@ -48,8 +48,6 @@ const GamePage = ({ games, items }) => {
     if (!showTarget) {
       setShowTarget(true);
 
-      console.log(gameItems);
-
       const xCoord = e.pageX;
       const yCoord = e.pageY;
       // setXCoord(xCoord);
@@ -109,20 +107,22 @@ const GamePage = ({ games, items }) => {
       item.coords.y < natY + rangeY
     ) {
       // you have a match
-      console.log("match");
       const items = remainingItems.filter((obj) => obj._id !== item._id);
       setRemainingItems(items);
       setShowTarget(false);
       setChosenItems([...chosenItems, item._id]);
-      setMessage(`You got one! ${remainingItems.length - 1} to go.`);
-      setCorrect(true);
-      setShowAlert(true);
+      if (remainingItems.length - 1 < 1) {
+        setGameOver(true);
+      } else {
+        setMessage(`You got one! ${remainingItems.length - 1} to go.`);
+        setCorrect(true);
+        setShowAlert(true);
 
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 2000);
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 2000);
+      }
     } else {
-      console.log("nope");
       setMessage("No good. Try again!");
       setCorrect(false);
       setShowAlert(true);
@@ -150,7 +150,7 @@ const GamePage = ({ games, items }) => {
           )}
         </div>
       </header>
-      <img onClick={handleClick} className={styles.gameImage} src={`https://waldo-api-eishalex.fly.dev/api/image/${id}`} alt="" />
+      <img onClick={!gameOver ? handleClick : (e) => e.preventDefault()} className={styles.gameImage} src={`https://waldo-api-eishalex.fly.dev/api/image/${id}`} alt="" />
       {showTarget && (
         <>
           <Target

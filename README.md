@@ -1,6 +1,5 @@
-Change the api backend to be able to GET all leaderboard entries.
 Fetch all leaderboard in the router, updating when the leaderboard is
-updated.
+updated. (in progress. Need to take a look at the updating)
 Figure out a way (context) to pass this leaderboard info and the update
 leaderboard state to the Homepage and the Leaderboard entry form.
 
