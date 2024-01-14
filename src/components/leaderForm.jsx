@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import GameContext from '../context';
 
-const LeaderForm = ({ gameId, time }) => {
+const LeaderForm = ({ gameId, timer }) => {
   const [username, setUsername] = useState('');
   let navigate = useNavigate();
   const { updateLeaders, setUpdateLeaders } = useContext(GameContext);
@@ -17,7 +17,7 @@ const LeaderForm = ({ gameId, time }) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             username: username,
-            completion_time: time
+            completion_time: timer
           })
         });
       if (response.status === 200) {
@@ -36,7 +36,7 @@ const LeaderForm = ({ gameId, time }) => {
         <label htmlFor="username">Entry name: </label>
         <input type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
       </div>
-      <input type="hidden" name="completion_time" value={time} />
+      <input type="hidden" name="completion_time" value={timer} />
       <button type="submit">Submit</button>
     </form>
   )

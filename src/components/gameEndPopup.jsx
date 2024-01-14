@@ -22,7 +22,7 @@ const GameEndPopup = ({ gameId, timer }) => {
     <div className={styles.endContainer}>
       <h2>Congratulations! You finished in {time}.</h2>
       <h3 className={styles.leader}>Add your score to the leaderboard:</h3>
-      <LeaderForm gameId={gameId} time={time} />
+      <LeaderForm gameId={gameId} timer={timer} />
     </div>
   )
 

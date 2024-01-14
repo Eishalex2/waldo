@@ -1,0 +1,31 @@
+.lbTable {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.gameTitle {
+  margin-bottom: 5px;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tableHeaderRow,
+.tableRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+}
+
+.tableRow {
+  margin-bottom: 10px;
+}

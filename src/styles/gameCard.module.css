@@ -1,10 +1,24 @@
-.card {
+.card,
+.leaderCard,
+.chosen {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   justify-content: center;
   align-items: center;
   gap: 10px;
+  border-radius: 15px;
+}
+
+.leaderCard:hover,
+.chosen:hover {
+  cursor: pointer;
+}
+
+.chosen {
+  outline: 2px solid red;
+  box-shadow: 0 0 15px red;
+  border-radius: 15px;
 }
 
 .imgContainer {
@@ -13,6 +27,7 @@
   overflow: hidden;
   display: flex;
   justify-content: center;
+  border-radius: 15px 15px 0 0;
 }
 
 .img {
@@ -30,5 +45,11 @@
 .content {
   display: flex;
   justify-content: space-between;
-  padding: 50px;
+  gap: 10px;
+  padding: 20px 50px 50px 50px;
+}
+
+.title {
+  text-align: center;
+  margin-top: 20px;
 }
