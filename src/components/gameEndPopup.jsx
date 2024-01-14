@@ -1,7 +1,7 @@
 import styles from '../styles/endPopup.module.css';
 import LeaderForm from './leaderForm';
 
-const GameEndPopup = ({ game, timer }) => {
+const GameEndPopup = ({ gameId, timer }) => {
   const hrs = Math.floor(timer / 3600);
   const mins = Math.floor((timer % 3600) / 60);
   const secs = Math.floor(timer % 60);
@@ -22,7 +22,7 @@ const GameEndPopup = ({ game, timer }) => {
     <div className={styles.endContainer}>
       <h2>Congratulations! You finished in {time}.</h2>
       <h3 className={styles.leader}>Add your score to the leaderboard:</h3>
-      <LeaderForm game={game} time={time} />
+      <LeaderForm gameId={gameId} time={time} />
     </div>
   )
 

@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Target from '../components/target';
 import GameItemSelect from '../components/gameItemSelect';
@@ -7,12 +7,14 @@ import Timer from '../components/timer';
 import Alert from '../components/alertBox';
 import GameEndPopup from '../components/gameEndPopup';
 import styles from '../styles/gamePage.module.css';
+import GameContext from '../context';
 
-const GamePage = ({ games, items }) => {
+const GamePage = () => {
+  const { games, items } = useContext(GameContext);
 
-  let { id } = useParams();
+  let { gameId } = useParams();
 
-  const gameItems = items.filter((item) => item.game === id);
+  const gameItems = items.filter((item) => item.game === gameId);
 
   // const [xCoord, setXCoord] = useState();
   // const [yCoord, setYCoord] = useState();
@@ -33,7 +35,7 @@ const GamePage = ({ games, items }) => {
   const [timer, setTimer] = useState(0);
   const [gameOver, setGameOver] = useState(false);
 
-  const game = games.filter((obj) => obj.id === id);
+  // const game = games.filter((obj) => obj.id === gameId);
 
   const selectHeight = remainingItems.length * 70;
 
@@ -144,13 +146,15 @@ const GamePage = ({ games, items }) => {
               return (
                 <img className={chosenItems.includes(item._id) ? styles.chosen : styles.item}
                 key={item._id} 
-                src={`https://waldo-api-eishalex.fly.dev/api/image/${id}/${item._id}`} />
+                src={`https://waldo-api-eishalex.fly.dev/api/image/${gameId}/${item._id}`} />
               )
             })
           )}
         </div>
       </header>
-      <img onClick={!gameOver ? handleClick : (e) => e.preventDefault()} className={styles.gameImage} src={`https://waldo-api-eishalex.fly.dev/api/image/${id}`} alt="" />
+      <img onClick={!gameOver ? handleClick : (e) => e.preventDefault()} 
+        className={styles.gameImage} 
+        src={`https://waldo-api-eishalex.fly.dev/api/image/${gameId}`} alt="" />
       {showTarget && (
         <>
           <Target
@@ -158,7 +162,7 @@ const GamePage = ({ games, items }) => {
             targetTop={targetTop}
           />
           <GameItemSelect 
-            gameId={id}
+            gameId={gameId}
             items={remainingItems} 
             handleSelect={handleSelect}
             selectLeft={selectLeft}
@@ -170,7 +174,7 @@ const GamePage = ({ games, items }) => {
         <Alert color={correct ? "correct" : "incorrect"} message={message}/>
       )}
       {gameOver && (
-        <GameEndPopup game={game} timer={timer}/>
+        <GameEndPopup gameId={gameId} timer={timer}/>
       )}
     </>
 
