@@ -16,11 +16,6 @@ https://inventory-app-eishalex.fly.dev/](https://waldo-nu.vercel.app/
 - Find the five specified images in the picture as fast as you can
 - Upon completion, add your time to the Leaderboard, which you can find on the Leaderboard page for each game
 
-## To Improve
-- Add CSS to make the website pretty.
-- Add ability to upload images. (using multer: https://github.com/expressjs/multer)
-- Add authentication and restrict update and delete functions.
-
 ## Image Credit
 - "Future City": Marija Tiurina (https://marijatiurina.com/)
 - "Infinite Expanses": Superfreunde (https://shop.superfreunde.eu/en/)
